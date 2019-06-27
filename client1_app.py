@@ -13,6 +13,12 @@ class ApplicationType(Enum):
     CLIENT = 1
 
 
+class ApplicationStatus(Enum):
+    WAITING = 0
+    RUNNING = 1
+    STOPPED = 2
+
+
 def send_x(connection):
     while True:
         x = input("x: ")
@@ -84,13 +90,15 @@ with sock:
             key, value = extractData(str(data, 'utf-8'))
             print(key, value)
         else:
-            print("NOT WORKING")
+            print(ApplicationStatus.STOPPED)
+            break
 
         for received in valuesReceivedStatus.values():  # Listen receiving port till all the values arrive
             if not received:
                 running = True
 
-        if running:
+        if not running:
             # Do the final calculation and return the value
-            ans = functionX()
-            print("Salaries: ",ans)
+            # ans = functionX()
+            # print("Salaries: ", ans)
+            pass
